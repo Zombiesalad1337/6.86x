@@ -129,5 +129,5 @@ wordlist   = [word for (idx, word) in sorted(zip(dictionary.values(), dictionary
 sorted_word_features = utils.most_explanatory_word(best_theta, wordlist)
 print("Most Explanatory Word Features")
 print(sorted_word_features[:10])
-print(sorted_word_features)
+# print(sorted_word_features)
 

@@ -1,24 +1,25 @@
 import project1 as p1
 import utils
 import numpy as np
-
+import json
 #-------------------------------------------------------------------------------
 # Data loading. There is no need to edit code in this section.
 #-------------------------------------------------------------------------------
 
-train_data = utils.load_data('reviews_train.tsv')
-val_data = utils.load_data('reviews_val.tsv')
-test_data = utils.load_data('reviews_test.tsv')
+# train_data = utils.load_data('reviews_train.tsv')
+# val_data = utils.load_data('reviews_val.tsv')
+# test_data = utils.load_data('reviews_test.tsv')
 
-train_texts, train_labels = zip(*((sample['text'], sample['sentiment']) for sample in train_data))
-val_texts, val_labels = zip(*((sample['text'], sample['sentiment']) for sample in val_data))
-test_texts, test_labels = zip(*((sample['text'], sample['sentiment']) for sample in test_data))
+# train_texts, train_labels = zip(*((sample['text'], sample['sentiment']) for sample in train_data))
+# val_texts, val_labels = zip(*((sample['text'], sample['sentiment']) for sample in val_data))
+# test_texts, test_labels = zip(*((sample['text'], sample['sentiment']) for sample in test_data))
 
-dictionary = p1.bag_of_words(train_texts)
+# dictionary = p1.bag_of_words(train_texts)
+# json.dump(dictionary, open('bag_of_words.json', 'w'))
 
-train_bow_features = p1.extract_bow_feature_vectors(train_texts, dictionary)
-val_bow_features = p1.extract_bow_feature_vectors(val_texts, dictionary)
-test_bow_features = p1.extract_bow_feature_vectors(test_texts, dictionary)
+# train_bow_features = p1.extract_bow_feature_vectors(train_texts, dictionary)
+# val_bow_features = p1.extract_bow_feature_vectors(val_texts, dictionary)
+# test_bow_features = p1.extract_bow_feature_vectors(test_texts, dictionary)
 
 #-------------------------------------------------------------------------------
 # Problem 5
@@ -107,21 +108,26 @@ test_bow_features = p1.extract_bow_feature_vectors(test_texts, dictionary)
 
 # Your code here
 
-_, test_acc = \
-   p1.classifier_accuracy(p1.pegasos, train_bow_features,test_bow_features,train_labels,test_labels,T=25, L=0.01)
-print("{:35} {:.4f}".format("Test accuracy for pegasos:", test_acc))
+# _, test_acc = \
+#    p1.classifier_accuracy(p1.pegasos, train_bow_features,test_bow_features,train_labels,test_labels,T=25, L=0.01)
+# print("{:35} {:.4f}".format("Test accuracy for pegasos:", test_acc))
 #-------------------------------------------------------------------------------
 # Assign to best_theta, the weights (and not the bias!) learned by your most
 # accurate algorithm with the optimal choice of hyperparameters.
 #-------------------------------------------------------------------------------
 
-best_theta = p1.pegasos(train_bow_features, train_labels, T=25, L=0.01)[0]
+# best_theta, best_theta_0 = p1.pegasos(train_bow_features, train_labels, T=25, L=0.01)
 # # print(best_theta, best_theta.shape)
 
+# np.save('best_theta.npy', best_theta)
+# np.save('best_theta_0.npy', best_theta_0)
 
+
+dictionary = json.load(open('bag_of_words.json'))
+best_theta = np.load('best_theta.npy')
 wordlist   = [word for (idx, word) in sorted(zip(dictionary.values(), dictionary.keys()))]
 sorted_word_features = utils.most_explanatory_word(best_theta, wordlist)
 print("Most Explanatory Word Features")
-# print(sorted_word_features[:10])
+print(sorted_word_features[:10])
 print(sorted_word_features)
 

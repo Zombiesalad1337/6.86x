@@ -115,13 +115,13 @@ print("{:35} {:.4f}".format("Test accuracy for pegasos:", test_acc))
 # accurate algorithm with the optimal choice of hyperparameters.
 #-------------------------------------------------------------------------------
 
-# best_theta = p1.pegasos(train_bow_features, train_labels, T=25, L=0.01)[0]
+best_theta = p1.pegasos(train_bow_features, train_labels, T=25, L=0.01)[0]
 # # print(best_theta, best_theta.shape)
 
 
-# wordlist   = [word for (idx, word) in sorted(zip(dictionary.values(), dictionary.keys()))]
-# sorted_word_features = utils.most_explanatory_word(best_theta, wordlist)
-# print("Most Explanatory Word Features")
-# # print(sorted_word_features[:10])
-# print(sorted_word_features)
+wordlist   = [word for (idx, word) in sorted(zip(dictionary.values(), dictionary.keys()))]
+sorted_word_features = utils.most_explanatory_word(best_theta, wordlist)
+print("Most Explanatory Word Features")
+# print(sorted_word_features[:10])
+print(sorted_word_features)
 
